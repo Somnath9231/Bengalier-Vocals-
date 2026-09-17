@@ -31,6 +31,15 @@ const ARTIST_NETWORK: Artist[] = [
     isFeatured: true,
   },
   {
+    id: "the-local-pharmacy",
+    name: "The Local Pharmacy",
+    category: "Live Performance Band",
+    description:
+      "An energetic live performance band bringing dynamic stage presence and acoustic/rock arrangements ideal for college events, concerts, and private celebrations.",
+    badge: "Featured Band",
+    isFeatured: true,
+  },
+  {
     id: "senior-artists",
     name: "Senior Artists Network",
     category: "Established Vocal Virtuosos & Classical Masters",
@@ -66,13 +75,13 @@ export default function ArtistsSection() {
         <div className="max-w-3xl space-y-4 mb-14">
           <div className="flex items-center gap-2 text-[#C1121F] font-bold text-xs uppercase tracking-widest">
             <Mic2 className="w-4 h-4" />
-            <span>Artist Network</span>
+            <span>Artists for Every Occasion</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#161616] tracking-tight">
             Artists We Coordinate With
           </h2>
           <p className="text-stone-600 text-base sm:text-lg leading-relaxed font-medium">
-            From established performers to emerging voices, we help connect events with singers, live bands, and instrumentalists suited to your specific occasion and budget.
+            From college events and private celebrations to public events, concerts, corporate galas, and cultural programs, we connect you with the right artists for your occasion.
           </p>
         </div>
 
@@ -136,7 +145,7 @@ export default function ArtistsSection() {
                   <span className="text-xs font-mono font-bold px-2 py-0.5 bg-stone-100 text-stone-700 uppercase tracking-wider border border-stone-200">
                     {artist.badge}
                   </span>
-                  <span className="text-stone-400 font-mono text-xs">0{idx + 3}</span>
+                  <span className="text-stone-400 font-mono text-xs">0{idx + 4}</span>
                 </div>
                 
                 <h4 className="text-xl font-bold text-[#161616]">{artist.name}</h4>
@@ -162,8 +171,25 @@ export default function ArtistsSection() {
           ))}
         </div>
 
+        {/* Music Formats & Genre Coverage Bar */}
+        <div className="mt-12 bg-white border border-stone-200 p-6 sm:p-8 space-y-4">
+          <div className="text-xs font-mono font-bold text-[#C1121F] uppercase tracking-widest">
+            Diverse Genres & Formats
+          </div>
+          <p className="text-stone-800 text-sm sm:text-base font-semibold leading-relaxed">
+            From Bollywood and Tollywood to Hindi, Bengali and folk music, our artist network includes solo performers, bands, male and female vocalists, and artists across different experience levels.
+          </p>
+          <div className="flex flex-wrap gap-2 pt-2 border-t border-stone-100">
+            {["Bollywood", "Tollywood", "Hindi Music", "Bengali Music", "Bengali Folk", "Live Bands", "Solo Artists", "Male Vocalists", "Female Vocalists", "College Fests", "Private Events", "Concerts"].map((tag) => (
+              <span key={tag} className="text-xs font-medium px-2.5 py-1 bg-[#FAFAFA] border border-stone-200 text-stone-700">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
         {/* Custom Artist Request Callout */}
-        <div className="mt-12 bg-stone-900 text-white p-8 md:p-10 border-l-4 border-[#C1121F] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="mt-8 bg-stone-900 text-white p-8 md:p-10 border-l-4 border-[#C1121F] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#C1121F]">
               <Sparkles className="w-4 h-4" />
@@ -189,3 +215,4 @@ export default function ArtistsSection() {
     </section>
   );
 }
+
