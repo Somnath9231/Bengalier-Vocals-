@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FAFAFA;
+  --foreground: #161616;
+  --brand-red: #C1121F;
+  --brand-red-dark: #8F0D16;
+}
+
+@theme inline {
+  --color-brand-red: #C1121F;
+  --color-brand-red-dark: #8F0D16;
+  --color-brand-dark: #161616;
+  --color-brand-muted: #404040;
+  --color-brand-offwhite: #FAFAFA;
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #FAFAFA;
+  color: #161616;
+}
+
+body {
+  background-color: #FAFAFA;
+  color: #161616;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Editorial Styling - Strictly NO gradients */
+.border-editorial {
+  border-color: #E5E7EB;
+}
+
+.text-editorial-headline {
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.btn-primary-red {
+  background-color: #C1121F;
+  color: #FFFFFF;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary-red:hover {
+  background-color: #8F0D16;
+}
+
+.btn-outline-dark {
+  border: 1px solid #161616;
+  color: #161616;
+  background-color: transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-dark:hover {
+  background-color: #161616;
+  color: #FFFFFF;
+}
+
+/* Custom Selection Highlight */
+::selection {
+  background-color: #C1121F;
+  color: #FFFFFF;
+}
+
