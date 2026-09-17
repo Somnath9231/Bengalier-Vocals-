@@ -23,13 +23,13 @@ export default function TeamSection() {
         {/* Team Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl">
           
-          {/* Ayon - Founder */}
+          {/* Ayan Bose - Founder */}
           <div className="bg-white border border-stone-200 p-8 flex items-start gap-6 hover:border-[#C1121F] transition-all">
             <div className="w-14 h-14 bg-[#161616] text-white flex items-center justify-center font-bold text-xl shrink-0">
               A
             </div>
             <div className="space-y-2">
-              <h3 className="text-xl font-extrabold text-[#161616]">Ayon</h3>
+              <h3 className="text-xl font-extrabold text-[#161616]">Ayan Bose</h3>
               <div className="text-xs font-bold uppercase tracking-wider text-[#C1121F]">
                 Founder & Key Coordinator
               </div>
@@ -47,13 +47,13 @@ export default function TeamSection() {
             </div>
           </div>
 
-          {/* Somnath - Support & Coordination */}
+          {/* Somnath Podder - Support & Coordination */}
           <div className="bg-white border border-stone-200 p-8 flex items-start gap-6 hover:border-[#C1121F] transition-all">
             <div className="w-14 h-14 bg-stone-200 text-[#161616] flex items-center justify-center font-bold text-xl shrink-0 border border-stone-300">
               S
             </div>
             <div className="space-y-2">
-              <h3 className="text-xl font-extrabold text-[#161616]">Somnath</h3>
+              <h3 className="text-xl font-extrabold text-[#161616]">Somnath Podder</h3>
               <div className="text-xs font-bold uppercase tracking-wider text-[#C1121F]">
                 Support & Production Logistics
               </div>

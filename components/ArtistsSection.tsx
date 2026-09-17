@@ -22,8 +22,8 @@ const ARTIST_NETWORK: Artist[] = [
     isFeatured: true,
   },
   {
-    id: "sujan-media",
-    name: "Sujan Media",
+    id: "sujan-metia",
+    name: "Sujan Metia",
     category: "Concert Ensemble & Folk/Fusion Vocalists",
     description:
       "Dynamic live music collective bringing rich Bengali & Indian vocal traditions blended with contemporary instrumentals suitable for grand stage productions.",

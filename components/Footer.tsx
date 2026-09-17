@@ -95,11 +95,11 @@ export default function Footer() {
             <div className="space-y-2 text-xs text-stone-300">
               <div className="flex justify-between border-b border-stone-800 pb-1.5">
                 <span className="text-stone-400">Founder:</span>
-                <span className="font-bold text-white">Ayon</span>
+                <span className="font-bold text-white">Ayan Bose</span>
               </div>
               <div className="flex justify-between border-b border-stone-800 pb-1.5">
                 <span className="text-stone-400">Support & Logistics:</span>
-                <span className="font-bold text-white">Somnath</span>
+                <span className="font-bold text-white">Somnath Podder</span>
               </div>
               <div className="flex items-center justify-between border-b border-stone-800 pb-1.5">
                 <span className="text-stone-400">Calls / WhatsApp:</span>
@@ -124,7 +124,7 @@ export default function Footer() {
               <div className="flex items-center justify-between pt-1">
                 <span className="text-stone-400">Instagram:</span>
                 <a
-                  href="https://www.instagram.com/bengaliervocals/"
+                  href="https://www.instagram.com/bengaliervocals?stkn=MXBuNHhjMG5oMXN1NQ=="
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-bold text-stone-200 hover:text-[#C1121F] flex items-center gap-1"

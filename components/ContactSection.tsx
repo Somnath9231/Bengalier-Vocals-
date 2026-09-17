@@ -42,11 +42,11 @@ export default function ContactSection() {
         {/* 3-Column Direct Contact Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
           
-          {/* Card 1: Ayon (Founder) Direct Calls & WhatsApp */}
+          {/* Card 1: Ayan Bose (Founder) Direct Calls & WhatsApp */}
           <div className="md:col-span-6 lg:col-span-5 bg-[#FAFAFA] border-2 border-stone-900 p-6 sm:p-8 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <div className="text-xs font-bold uppercase tracking-wider text-[#C1121F]">
-                Founder & Key Coordinator (Ayon)
+                Founder & Key Coordinator (Ayan Bose)
               </div>
               <h3 className="text-2xl font-extrabold text-[#161616]">
                 Call or WhatsApp Directly
@@ -81,16 +81,16 @@ export default function ContactSection() {
                 className="bg-[#C1121F] text-white text-xs font-bold uppercase tracking-wider px-5 py-3 hover:bg-[#8F0D16] transition-colors flex items-center justify-center gap-2"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
-                WhatsApp Ayon
+                WhatsApp Ayan Bose
               </a>
             </div>
           </div>
 
-          {/* Card 2: Somnath (Support & Logistics) */}
+          {/* Card 2: Somnath Podder (Support & Logistics) */}
           <div className="md:col-span-6 lg:col-span-4 bg-[#FAFAFA] border border-stone-200 p-6 sm:p-8 flex flex-col justify-between space-y-6 hover:border-[#C1121F] transition-all">
             <div className="space-y-4">
               <div className="text-xs font-bold uppercase tracking-wider text-stone-500">
-                Support & Technical Queries (Somnath)
+                Support & Technical Queries (Somnath Podder)
               </div>
               <h3 className="text-2xl font-extrabold text-[#161616]">
                 Technical & Logistics Support
@@ -153,7 +153,7 @@ export default function ContactSection() {
             </div>
 
             <a
-              href="https://www.instagram.com/bengaliervocals/"
+              href="https://www.instagram.com/bengaliervocals?stkn=MXBuNHhjMG5oMXN1NQ=="
               target="_blank"
               rel="noopener noreferrer"
               className="w-full bg-stone-100 hover:bg-[#C1121F] hover:text-white text-stone-900 text-xs font-bold uppercase tracking-wider py-3 transition-colors flex items-center justify-center gap-1.5"
