@@ -1,0 +1,41 @@
+[
+  {
+    "id": "cli_1",
+    "name": "Rajesh Sharma",
+    "phone": "+91 98301 12345",
+    "whatsapp": "+91 98301 12345",
+    "eventType": "Wedding Reception",
+    "eventDate": "2026-11-15",
+    "location": "Kolkata, WB",
+    "budget": "₹45,000",
+    "status": "Confirmed",
+    "notes": "Requires acoustic singer + 3-piece live band for evening reception.",
+    "createdAt": "2026-10-08T20:15:30.641Z"
+  },
+  {
+    "id": "cli_2",
+    "name": "Priya Roy",
+    "phone": "+91 97482 98765",
+    "whatsapp": "+91 97482 98765",
+    "eventType": "Corporate Annual Gala",
+    "eventDate": "2026-12-05",
+    "location": "Salt Lake Sector 5, Kolkata",
+    "budget": "₹80,000",
+    "status": "Pending",
+    "notes": "Needs senior male & female vocalists along with sound PA setup.",
+    "createdAt": "2026-10-08T20:15:30.641Z"
+  },
+  {
+    "id": "cli_3",
+    "name": "Subhajit Mukherjee",
+    "phone": "+91 94330 55443",
+    "whatsapp": "+91 94330 55443",
+    "eventType": "College Fest Cultural Night",
+    "eventDate": "2026-10-28",
+    "location": "Jadavpur, Kolkata",
+    "budget": "₹1,20,000",
+    "status": "Confirmed",
+    "notes": "Booked Tanmay Kar & Friends for main stage live concert.",
+    "createdAt": "2026-10-08T20:15:30.641Z"
+  }
+]

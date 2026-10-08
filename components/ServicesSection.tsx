@@ -87,7 +87,7 @@ export default function ServicesSection() {
   const supportServices = SERVICES.filter((s) => !s.isPrimary);
 
   return (
-    <section id="services" className="py-20 md:py-28 bg-white border-b border-stone-200">
+    <section id="services" className="py-20 md:py-28 bg-white dark:bg-[#09090B] border-b border-stone-200 dark:border-stone-800 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -95,17 +95,17 @@ export default function ServicesSection() {
           <div className="text-[#C1121F] font-bold text-xs uppercase tracking-widest">
             Core Capabilities
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#161616] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#161616] dark:text-white tracking-tight">
             Services & Production Support
           </h2>
-          <p className="text-stone-600 text-base sm:text-lg leading-relaxed font-medium">
+          <p className="text-stone-600 dark:text-stone-300 text-base sm:text-lg leading-relaxed font-medium">
             Bengalier Vocals is primarily an artist coordination company, backed by comprehensive event production support through trusted partner networks.
           </p>
         </div>
 
         {/* Primary Service Featured Hero Card */}
         {primaryService && (
-          <div className="mb-16 bg-[#FAFAFA] border-2 border-[#161616] p-8 sm:p-10 md:p-12 relative">
+          <div className="mb-16 bg-[#FAFAFA] dark:bg-stone-900 border-2 border-[#161616] dark:border-stone-700 p-8 sm:p-10 md:p-12 relative shadow-lg">
             <div className="absolute top-0 right-0 bg-[#C1121F] text-white text-xs font-bold uppercase tracking-widest px-4 py-2">
               Primary Focus
             </div>
@@ -116,17 +116,17 @@ export default function ServicesSection() {
                   <span className="font-mono text-3xl font-extrabold text-[#C1121F]">
                     {primaryService.number}
                   </span>
-                  <div className="h-6 w-px bg-stone-300" />
-                  <span className="text-xs font-bold uppercase tracking-widest text-stone-500">
+                  <div className="h-6 w-px bg-stone-300 dark:bg-stone-700" />
+                  <span className="text-xs font-bold uppercase tracking-widest text-stone-500 dark:text-stone-400">
                     {primaryService.subtitle}
                   </span>
                 </div>
 
-                <h3 className="text-3xl sm:text-4xl font-extrabold text-[#161616]">
+                <h3 className="text-3xl sm:text-4xl font-extrabold text-[#161616] dark:text-white">
                   {primaryService.title}
                 </h3>
 
-                <p className="text-stone-700 text-base sm:text-lg leading-relaxed">
+                <p className="text-stone-700 dark:text-stone-300 text-base sm:text-lg leading-relaxed">
                   {primaryService.description}
                 </p>
 
@@ -134,7 +134,7 @@ export default function ServicesSection() {
                   {primaryService.features.map((feature, idx) => (
                     <div key={idx} className="flex items-center gap-2.5">
                       <CheckCircle className="w-4 h-4 text-[#C1121F] shrink-0" />
-                      <span className="text-xs sm:text-sm font-semibold text-stone-800">
+                      <span className="text-xs sm:text-sm font-semibold text-stone-800 dark:text-stone-200">
                         {feature}
                       </span>
                     </div>
@@ -142,11 +142,11 @@ export default function ServicesSection() {
                 </div>
               </div>
 
-              <div className="lg:col-span-5 bg-white p-6 sm:p-8 border border-stone-200 space-y-4">
-                <h4 className="text-base font-bold text-[#161616] border-b border-stone-200 pb-3">
+              <div className="lg:col-span-5 bg-white dark:bg-stone-950 p-6 sm:p-8 border border-stone-200 dark:border-stone-800 space-y-4 shadow-sm">
+                <h4 className="text-base font-bold text-[#161616] dark:text-white border-b border-stone-200 dark:border-stone-800 pb-3">
                   Why Work With Bengalier Vocals?
                 </h4>
-                <ul className="space-y-3 text-xs sm:text-sm text-stone-600">
+                <ul className="space-y-3 text-xs sm:text-sm text-stone-600 dark:text-stone-300">
                   <li className="flex items-start gap-2">
                     <span className="text-[#C1121F] font-bold">•</span>
                     <span>Direct coordination without bloated middleman commissions.</span>
@@ -173,7 +173,7 @@ export default function ServicesSection() {
 
         {/* Sub-Services Editorial Asymmetric List */}
         <div className="space-y-6">
-          <div className="text-xs font-bold uppercase tracking-widest text-stone-500 border-b border-stone-200 pb-2">
+          <div className="text-xs font-bold uppercase tracking-widest text-stone-500 dark:text-stone-400 border-b border-stone-200 dark:border-stone-800 pb-2">
             Event Production Support Services (Partner Network)
           </div>
 
@@ -183,34 +183,34 @@ export default function ServicesSection() {
               return (
                 <div
                   key={service.number}
-                  className="bg-white border border-stone-200 p-6 flex flex-col justify-between hover:border-[#C1121F] transition-all group"
+                  className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 p-6 flex flex-col justify-between hover:border-[#C1121F] dark:hover:border-[#C1121F] transition-all group"
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-xl font-bold text-stone-400 group-hover:text-[#C1121F] transition-colors">
+                      <span className="font-mono text-xl font-bold text-stone-400 dark:text-stone-500 group-hover:text-[#C1121F] dark:group-hover:text-[#C1121F] transition-colors">
                         {service.number}
                       </span>
-                      <IconComp className="w-5 h-5 text-stone-400 group-hover:text-[#C1121F] transition-colors" />
+                      <IconComp className="w-5 h-5 text-stone-400 dark:text-stone-500 group-hover:text-[#C1121F] dark:group-hover:text-[#C1121F] transition-colors" />
                     </div>
 
                     <div>
-                      <h4 className="text-lg font-extrabold text-[#161616]">
+                      <h4 className="text-lg font-extrabold text-[#161616] dark:text-white">
                         {service.title}
                       </h4>
-                      <p className="text-xs font-semibold text-stone-500 mt-0.5">
+                      <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 mt-0.5">
                         {service.subtitle}
                       </p>
                     </div>
 
-                    <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
+                    <p className="text-stone-600 dark:text-stone-300 text-xs sm:text-sm leading-relaxed">
                       {service.description}
                     </p>
                   </div>
 
-                  <div className="pt-4 mt-6 border-t border-stone-100">
+                  <div className="pt-4 mt-6 border-t border-stone-100 dark:border-stone-800">
                     <ul className="space-y-1.5">
                       {service.features.map((item, idx) => (
-                        <li key={idx} className="text-[11px] text-stone-500 flex items-center gap-1.5">
+                        <li key={idx} className="text-[11px] text-stone-500 dark:text-stone-400 flex items-center gap-1.5">
                           <span className="w-1 h-1 bg-[#C1121F] rounded-full" />
                           <span>{item}</span>
                         </li>

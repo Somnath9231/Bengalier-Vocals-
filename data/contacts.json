@@ -1,0 +1,29 @@
+[
+  {
+    "id": "cnt_1",
+    "name": "Tanmay Kar",
+    "phone": "+91 98301 12345",
+    "whatsapp": "+91 98301 12345",
+    "relation": "Artist",
+    "notes": "Lead Vocalist & Acoustic Band Leader",
+    "createdAt": "2026-10-08T20:20:53.270Z"
+  },
+  {
+    "id": "cnt_2",
+    "name": "Ayan Bose",
+    "phone": "+91 62907 13080",
+    "whatsapp": "+91 62907 13080",
+    "relation": "Founder & Key Coordinator",
+    "notes": "Main point of contact for artist bookings",
+    "createdAt": "2026-10-08T20:20:53.270Z"
+  },
+  {
+    "id": "cnt_3",
+    "name": "Somnath Podder",
+    "phone": "+91 94328 82915",
+    "whatsapp": "+91 94328 82915",
+    "relation": "Promoter & Technical Support",
+    "notes": "Handles sound equipment, stage framing & logistics",
+    "createdAt": "2026-10-08T20:20:53.270Z"
+  }
+]

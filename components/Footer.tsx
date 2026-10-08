@@ -23,12 +23,11 @@ function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
 }
 
 export default function Footer() {
-
   return (
-    <footer className="bg-[#161616] text-white pt-16 pb-12 border-t-4 border-[#C1121F]">
+    <footer className="bg-[#161616] dark:bg-[#050505] text-white pt-16 pb-12 border-t-4 border-[#C1121F] transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-stone-800">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-stone-800 dark:border-stone-900">
           
           {/* Brand & Logo Column */}
           <div className="md:col-span-5 space-y-4">
@@ -93,15 +92,15 @@ export default function Footer() {
             </h4>
             
             <div className="space-y-2 text-xs text-stone-300">
-              <div className="flex justify-between border-b border-stone-800 pb-1.5">
+              <div className="flex justify-between border-b border-stone-800 dark:border-stone-900 pb-1.5">
                 <span className="text-stone-400">Founder:</span>
                 <span className="font-bold text-white">Ayan Bose</span>
               </div>
-              <div className="flex justify-between border-b border-stone-800 pb-1.5">
+              <div className="flex justify-between border-b border-stone-800 dark:border-stone-900 pb-1.5">
                 <span className="text-stone-400">Support & Logistics:</span>
                 <span className="font-bold text-white">Somnath Podder</span>
               </div>
-              <div className="flex items-center justify-between border-b border-stone-800 pb-1.5">
+              <div className="flex items-center justify-between border-b border-stone-800 dark:border-stone-900 pb-1.5">
                 <span className="text-stone-400">Calls / WhatsApp:</span>
                 <a
                   href="tel:+916290713080"
@@ -110,7 +109,7 @@ export default function Footer() {
                   +91 62907 13080
                 </a>
               </div>
-              <div className="flex items-center justify-between border-b border-stone-800 pb-1.5">
+              <div className="flex items-center justify-between border-b border-stone-800 dark:border-stone-900 pb-1.5">
                 <span className="text-stone-400">WhatsApp Support:</span>
                 <a
                   href="https://wa.me/919432882915"

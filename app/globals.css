@@ -1,10 +1,18 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #FAFAFA;
   --foreground: #161616;
   --brand-red: #C1121F;
   --brand-red-dark: #8F0D16;
+}
+
+.dark {
+  --background: #09090B;
+  --foreground: #FAFAFA;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -20,6 +28,7 @@ html {
   scroll-behavior: smooth;
   background-color: #FAFAFA;
   color: #161616;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 body {
@@ -27,11 +36,26 @@ body {
   color: #161616;
   font-family: var(--font-jakarta), system-ui, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+html.dark {
+  background-color: #09090B;
+  color: #FAFAFA;
+}
+
+html.dark body {
+  background-color: #09090B;
+  color: #FAFAFA;
 }
 
 /* Custom Editorial Styling - Strictly NO gradients */
 .border-editorial {
   border-color: #E5E7EB;
+}
+
+.dark .border-editorial {
+  border-color: #27272A;
 }
 
 .text-editorial-headline {
@@ -56,9 +80,19 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
+.dark .btn-outline-dark {
+  border: 1px solid #FAFAFA;
+  color: #FAFAFA;
+}
+
 .btn-outline-dark:hover {
   background-color: #161616;
   color: #FFFFFF;
+}
+
+.dark .btn-outline-dark:hover {
+  background-color: #FAFAFA;
+  color: #161616;
 }
 
 /* Custom Selection Highlight */
@@ -66,4 +100,3 @@ body {
   background-color: #C1121F;
   color: #FFFFFF;
 }
-

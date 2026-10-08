@@ -29,7 +29,7 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-16 md:py-24 bg-[#FAFAFA] border-b border-stone-200">
+    <section className="py-16 md:py-24 bg-[#FAFAFA] dark:bg-[#0D0D0E] border-b border-stone-200 dark:border-stone-800 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -37,7 +37,7 @@ export default function HowItWorks() {
           <div className="text-[#C1121F] font-bold text-xs uppercase tracking-widest mb-1">
             Simple Process
           </div>
-          <h2 className="text-3xl font-extrabold text-[#161616] tracking-tight">
+          <h2 className="text-3xl font-extrabold text-[#161616] dark:text-white tracking-tight">
             How It Works
           </h2>
         </div>
@@ -47,15 +47,15 @@ export default function HowItWorks() {
           {STEPS.map((step) => (
             <div
               key={step.number}
-              className="bg-white border-t-4 border-[#C1121F] p-6 shadow-xs space-y-3"
+              className="bg-white dark:bg-stone-900 border-t-4 border-[#C1121F] p-6 shadow-xs space-y-3 border-x border-b border-stone-200 dark:border-stone-800"
             >
               <span className="font-mono text-3xl font-extrabold text-[#C1121F] block">
                 {step.number}
               </span>
-              <h3 className="text-base font-bold text-[#161616]">
+              <h3 className="text-base font-bold text-[#161616] dark:text-white">
                 {step.title}
               </h3>
-              <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
+              <p className="text-stone-600 dark:text-stone-300 text-xs sm:text-sm leading-relaxed">
                 {step.description}
               </p>
             </div>

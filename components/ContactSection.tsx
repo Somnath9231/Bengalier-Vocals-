@@ -23,7 +23,7 @@ function InstagramIcon({ className = "w-5 h-5" }: { className?: string }) {
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="py-20 md:py-28 bg-white border-b border-stone-200">
+    <section id="contact" className="py-20 md:py-28 bg-white dark:bg-[#09090B] border-b border-stone-200 dark:border-stone-800 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -31,10 +31,10 @@ export default function ContactSection() {
           <div className="text-[#C1121F] font-bold text-xs uppercase tracking-widest">
             Direct Contact & Booking
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#161616] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#161616] dark:text-white tracking-tight">
             Planning an Event?
           </h2>
-          <p className="text-stone-600 text-base sm:text-lg leading-relaxed font-medium">
+          <p className="text-stone-600 dark:text-stone-300 text-base sm:text-lg leading-relaxed font-medium">
             Tell us what you&apos;re planning, and we&apos;ll help you find the right artist and production support for your event. Reach out to us directly via phone, WhatsApp, or Instagram.
           </p>
         </div>
@@ -43,22 +43,22 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
           
           {/* Card 1: Ayan Bose (Founder) Direct Calls & WhatsApp */}
-          <div className="md:col-span-6 lg:col-span-5 bg-[#FAFAFA] border-2 border-stone-900 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+          <div className="md:col-span-6 lg:col-span-5 bg-[#FAFAFA] dark:bg-stone-900 border-2 border-stone-900 dark:border-stone-700 p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-md">
             <div className="space-y-4">
               <div className="text-xs font-bold uppercase tracking-wider text-[#C1121F]">
                 Founder & Key Coordinator (Ayan Bose)
               </div>
-              <h3 className="text-2xl font-extrabold text-[#161616]">
+              <h3 className="text-2xl font-extrabold text-[#161616] dark:text-white">
                 Call or WhatsApp Directly
               </h3>
-              <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
+              <p className="text-stone-600 dark:text-stone-300 text-xs sm:text-sm leading-relaxed">
                 Connect directly for artist availability, performance bookings, setlists, and event scheduling.
               </p>
 
               <div className="pt-2">
                 <a
                   href="tel:+916290713080"
-                  className="text-xl font-extrabold text-[#161616] hover:text-[#C1121F] flex items-center gap-2 transition-colors"
+                  className="text-xl font-extrabold text-[#161616] dark:text-white hover:text-[#C1121F] dark:hover:text-[#C1121F] flex items-center gap-2 transition-colors"
                 >
                   <Phone className="w-5 h-5 text-[#C1121F]" />
                   +91 62907 13080
@@ -66,10 +66,10 @@ export default function ContactSection() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-stone-200">
+            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-stone-200 dark:border-stone-800">
               <a
                 href="tel:+916290713080"
-                className="bg-[#161616] text-white text-xs font-bold uppercase tracking-wider px-5 py-3 hover:bg-black transition-colors flex items-center justify-center gap-2"
+                className="bg-[#161616] dark:bg-stone-950 text-white text-xs font-bold uppercase tracking-wider px-5 py-3 hover:bg-black transition-colors flex items-center justify-center gap-2 border border-stone-800"
               >
                 <Phone className="w-3.5 h-3.5" />
                 Call Now
@@ -87,15 +87,15 @@ export default function ContactSection() {
           </div>
 
           {/* Card 2: Somnath Podder (Support & Logistics) */}
-          <div className="md:col-span-6 lg:col-span-4 bg-[#FAFAFA] border border-stone-200 p-6 sm:p-8 flex flex-col justify-between space-y-6 hover:border-[#C1121F] transition-all">
+          <div className="md:col-span-6 lg:col-span-4 bg-[#FAFAFA] dark:bg-stone-900 border border-stone-200 dark:border-stone-800 p-6 sm:p-8 flex flex-col justify-between space-y-6 hover:border-[#C1121F] dark:hover:border-[#C1121F] transition-all">
             <div className="space-y-4">
-              <div className="text-xs font-bold uppercase tracking-wider text-stone-500">
+              <div className="text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">
                 Support & Technical Queries (Somnath Podder)
               </div>
-              <h3 className="text-2xl font-extrabold text-[#161616]">
+              <h3 className="text-2xl font-extrabold text-[#161616] dark:text-white">
                 Technical & Logistics Support
               </h3>
-              <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
+              <p className="text-stone-600 dark:text-stone-300 text-xs sm:text-sm leading-relaxed">
                 Contact for sound equipment PA setups, stage framing, lighting arrangements, and instrument rentals.
               </p>
 
@@ -104,7 +104,7 @@ export default function ContactSection() {
                   href="https://wa.me/919432882915"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xl font-extrabold text-[#161616] hover:text-[#C1121F] flex items-center gap-2 transition-colors"
+                  className="text-xl font-extrabold text-[#161616] dark:text-white hover:text-[#C1121F] dark:hover:text-[#C1121F] flex items-center gap-2 transition-colors"
                 >
                   <MessageSquare className="w-5 h-5 text-[#C1121F]" />
                   +91 94328 82915
@@ -112,12 +112,12 @@ export default function ContactSection() {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-stone-200">
+            <div className="pt-4 border-t border-stone-200 dark:border-stone-800">
               <a
                 href="https://wa.me/919432882915?text=Hi%20Bengalier%20Vocals%2C%20I%20have%20an%20event%20query."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-stone-800 text-white text-xs font-bold uppercase tracking-wider px-5 py-3 hover:bg-stone-900 transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-stone-800 dark:bg-stone-800 text-white text-xs font-bold uppercase tracking-wider px-5 py-3 hover:bg-stone-900 transition-colors flex items-center justify-center gap-2"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
                 WhatsApp Support
@@ -126,7 +126,7 @@ export default function ContactSection() {
           </div>
 
           {/* Card 3: Instagram QR Code Display & Link */}
-          <div className="md:col-span-12 lg:col-span-3 bg-white border border-stone-200 p-6 sm:p-8 flex flex-col items-center justify-between text-center space-y-6 hover:border-[#C1121F] transition-all">
+          <div className="md:col-span-12 lg:col-span-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 p-6 sm:p-8 flex flex-col items-center justify-between text-center space-y-6 hover:border-[#C1121F] dark:hover:border-[#C1121F] transition-all">
             <div className="space-y-3 flex flex-col items-center">
               <div className="flex items-center gap-2 text-[#C1121F]">
                 <InstagramIcon className="w-5 h-5" />
@@ -135,7 +135,7 @@ export default function ContactSection() {
                 </span>
               </div>
               
-              <div className="relative w-36 h-36 border-2 border-stone-900 p-1 bg-white my-2">
+              <div className="relative w-36 h-36 border-2 border-stone-900 dark:border-stone-700 p-1 bg-white my-2">
                 <Image
                   src="/insta.jpg"
                   alt="Bengalier Vocals Instagram QR Code"
@@ -144,10 +144,10 @@ export default function ContactSection() {
                 />
               </div>
 
-              <h4 className="text-base font-extrabold text-[#161616]">
+              <h4 className="text-base font-extrabold text-[#161616] dark:text-white">
                 @bengaliervocals
               </h4>
-              <p className="text-stone-500 text-xs leading-relaxed">
+              <p className="text-stone-500 dark:text-stone-400 text-xs leading-relaxed">
                 Scan QR code to view live performance videos and updates.
               </p>
             </div>
@@ -156,7 +156,7 @@ export default function ContactSection() {
               href="https://www.instagram.com/bengaliervocals?stkn=MXBuNHhjMG5oMXN1NQ=="
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-stone-100 hover:bg-[#C1121F] hover:text-white text-stone-900 text-xs font-bold uppercase tracking-wider py-3 transition-colors flex items-center justify-center gap-1.5"
+              className="w-full bg-stone-100 dark:bg-stone-800 hover:bg-[#C1121F] dark:hover:bg-[#C1121F] text-stone-900 dark:text-stone-100 dark:hover:text-white text-xs font-bold uppercase tracking-wider py-3 transition-colors flex items-center justify-center gap-1.5"
             >
               <span>Visit Profile</span>
               <span>→</span>
