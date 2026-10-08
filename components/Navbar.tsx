@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, Phone, MessageSquare, Sun, Moon } from "lucide-react";
+import { Menu, X, Phone, MessageSquare, Sun, Moon, ArrowRight, Music2 } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import ContactModal from "./ContactModal";
 
@@ -48,6 +48,18 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when mobile slide menu is active
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <>
       <header
@@ -58,14 +70,14 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-6">
+          <div className="flex items-center justify-between gap-4 sm:gap-6">
             
-            {/* Logo Section - Increased Size */}
+            {/* Logo Section */}
             <Link
               href="#home"
               className="flex items-center shrink-0 focus:outline-none focus:ring-2 focus:ring-[#C1121F] rounded-sm"
             >
-              <div className="relative h-14 sm:h-18 md:h-20 lg:h-22 w-52 sm:w-72 md:w-80 lg:w-96 transition-all duration-200">
+              <div className="relative h-12 sm:h-16 md:h-20 lg:h-22 w-44 sm:w-64 md:w-80 lg:w-96 transition-all duration-200">
                 <Image
                   src="/logo.jpg"
                   alt="Bengalier Vocals Logo"
@@ -76,7 +88,7 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Desktop Navigation - Larger text & clean spacing for Laptop/Desktop */}
+            {/* Desktop Navigation (Unchanged for Laptop/Desktop) */}
             <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
               {NAV_ITEMS.map((item) => {
                 const sectionId = item.href.substring(1);
@@ -102,7 +114,6 @@ export default function Navbar() {
 
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-3.5">
-              {/* Contact Button with Phone Icon & "Contact" label */}
               <button
                 type="button"
                 onClick={() => setIsContactModalOpen(true)}
@@ -113,7 +124,6 @@ export default function Navbar() {
                 <span>Contact</span>
               </button>
 
-              {/* Dark / Light Mode Toggle Switch (Desktop) */}
               <button
                 type="button"
                 onClick={toggleTheme}
@@ -140,7 +150,6 @@ export default function Navbar() {
                 </span>
               </button>
 
-              {/* Book Artist Primary CTA */}
               <a
                 href="#contact"
                 className="bg-[#C1121F] hover:bg-[#8F0D16] text-white text-xs uppercase tracking-wider font-extrabold px-5 py-2.5 transition-colors duration-150 inline-flex items-center gap-2 shadow-xs"
@@ -150,20 +159,10 @@ export default function Navbar() {
               </a>
             </div>
 
-            {/* Mobile View Controls (Only visible on Mobile Phones < 768px) */}
+            {/* Mobile View Controls (Strictly Mobile < 768px) */}
+            {/* Note: Theme toggle is positioned to the LEFT of the Contact button on Mobile header */}
             <div className="flex md:hidden items-center gap-2">
-              {/* Contact Trigger Mobile */}
-              <button
-                type="button"
-                onClick={() => setIsContactModalOpen(true)}
-                className="bg-stone-100 dark:bg-stone-900 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 text-xs font-extrabold px-3 py-2 flex items-center gap-1.5"
-                aria-label="Contact Information"
-              >
-                <Phone className="w-3.5 h-3.5 text-[#C1121F]" />
-                <span>Contact</span>
-              </button>
-
-              {/* Dark / Light Mode Toggle Switch Mobile */}
+              {/* Dark / Light Mode Toggle Switch Mobile - Positioned to the Left */}
               <button
                 type="button"
                 onClick={toggleTheme}
@@ -171,6 +170,7 @@ export default function Navbar() {
                 role="switch"
                 aria-checked={theme === "dark"}
                 aria-label="Toggle Theme"
+                title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
               >
                 <div className="absolute inset-0 flex items-center justify-between px-1 pointer-events-none">
                   <Sun className="w-3 h-3 text-amber-500" />
@@ -189,64 +189,145 @@ export default function Navbar() {
                 </span>
               </button>
 
-              {/* Hamburger Burger Menu Button - STRICTLY FOR PHONES */}
+              {/* Contact Trigger Mobile */}
               <button
                 type="button"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-stone-800 dark:text-stone-200 hover:text-[#C1121F] focus:outline-none"
-                aria-label="Toggle Navigation Menu"
+                onClick={() => setIsContactModalOpen(true)}
+                className="bg-stone-100 dark:bg-stone-900 text-stone-900 dark:text-stone-100 border border-stone-300 dark:border-stone-700 text-xs font-extrabold px-2.5 py-1.5 flex items-center gap-1 cursor-pointer"
+                aria-label="Contact Information"
               >
-                {mobileMenuOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
+                <Phone className="w-3.5 h-3.5 text-[#C1121F]" />
+                <span>Contact</span>
+              </button>
+
+              {/* Hamburger Menu Button */}
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(true)}
+                className="p-2 text-stone-800 dark:text-stone-200 hover:text-[#C1121F] focus:outline-none cursor-pointer"
+                aria-label="Open Navigation Menu"
+              >
+                <Menu className="w-6 h-6" />
               </button>
             </div>
           </div>
         </div>
+      </header>
 
-        {/* Mobile Burger Menu Dropdown (Phone aspect ratio) */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 px-4 pt-4 pb-6 space-y-4 shadow-lg animate-in slide-in-from-top-2 duration-200">
-            <div className="flex flex-col space-y-3">
-              {NAV_ITEMS.map((item) => (
+      {/* Side Slide Pull Drawer Menu (Mobile Phones Only) */}
+      {/* Backdrop Overlay */}
+      <div
+        className={`fixed inset-0 bg-black/60 backdrop-blur-xs z-50 transition-opacity duration-300 md:hidden ${
+          mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setMobileMenuOpen(false)}
+        aria-hidden="true"
+      />
+
+      {/* Sliding Drawer Panel */}
+      <div
+        className={`fixed top-0 right-0 bottom-0 z-50 w-[85%] max-w-sm bg-white dark:bg-stone-950 border-l border-stone-200 dark:border-stone-800 p-6 flex flex-col justify-between shadow-2xl transition-transform duration-300 ease-out transform md:hidden ${
+          mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="space-y-6">
+          {/* Drawer Header with Title & Close Button */}
+          <div className="flex items-center justify-between border-b border-stone-100 dark:border-stone-800 pb-4">
+            <div className="flex items-center gap-2">
+              <Music2 className="w-5 h-5 text-[#C1121F]" />
+              <span className="font-extrabold text-base tracking-wide text-stone-900 dark:text-white uppercase">
+                Navigation
+              </span>
+            </div>
+            
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-2 rounded-full text-stone-500 hover:text-[#C1121F] dark:text-stone-400 dark:hover:text-white bg-stone-100 dark:bg-stone-900 transition-colors cursor-pointer"
+              aria-label="Close Menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Navigation Links List */}
+          <nav className="flex flex-col space-y-2">
+            {NAV_ITEMS.map((item) => {
+              const sectionId = item.href.substring(1);
+              const isActive = activeSection === sectionId;
+              return (
                 <Link
                   key={item.label}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-stone-900 dark:text-stone-100 hover:text-[#C1121F] dark:hover:text-[#C1121F] font-bold text-lg py-2 border-b border-stone-100 dark:border-stone-800 flex justify-between items-center"
+                  className={`flex items-center justify-between text-lg font-extrabold py-3 px-3 rounded-md transition-all ${
+                    isActive
+                      ? "bg-[#C1121F]/10 text-[#C1121F]"
+                      : "text-stone-800 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 hover:text-[#C1121F]"
+                  }`}
                 >
                   <span>{item.label}</span>
-                  <span className="text-[#C1121F] text-sm font-mono">→</span>
+                  <ArrowRight className={`w-4 h-4 transition-transform ${isActive ? "text-[#C1121F] translate-x-1" : "text-stone-400"}`} />
                 </Link>
-              ))}
-            </div>
+              );
+            })}
+          </nav>
+        </div>
 
-            <div className="pt-2 flex flex-col space-y-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setIsContactModalOpen(true);
-                }}
-                className="w-full text-center py-3 bg-stone-100 dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-stone-100 font-extrabold text-base flex items-center justify-center gap-2"
+        {/* Drawer Footer Actions */}
+        <div className="pt-6 border-t border-stone-200 dark:border-stone-800 space-y-3">
+          {/* Mobile Theme Toggle Row in Drawer */}
+          <div className="flex items-center justify-between px-3 py-2 bg-stone-50 dark:bg-stone-900/60 rounded-md border border-stone-200 dark:border-stone-800">
+            <span className="text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider">
+              {theme === "dark" ? "Dark Mode" : "Light Mode"}
+            </span>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="relative inline-flex h-7 w-12 shrink-0 cursor-pointer items-center rounded-full bg-stone-200 dark:bg-stone-800 p-0.5 transition-colors duration-300 border border-stone-300 dark:border-stone-700 shadow-inner"
+              role="switch"
+              aria-checked={theme === "dark"}
+              aria-label="Toggle Theme"
+            >
+              <div className="absolute inset-0 flex items-center justify-between px-1 pointer-events-none">
+                <Sun className="w-3 h-3 text-amber-500" />
+                <Moon className="w-3 h-3 text-stone-400 dark:text-amber-300" />
+              </div>
+              <span
+                className={`pointer-events-none z-10 inline-block h-5 w-5 rounded-full bg-white dark:bg-[#C1121F] shadow-sm transform transition-transform duration-300 ease-in-out flex items-center justify-center ${
+                  theme === "dark" ? "translate-x-5" : "translate-x-0"
+                }`}
               >
-                <Phone className="w-4 h-4 text-[#C1121F]" />
-                <span>Contact Details (Call & WhatsApp)</span>
-              </button>
-
-              <a
-                href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-center bg-[#C1121F] text-white font-extrabold text-sm uppercase tracking-wider py-3.5 shadow-sm"
-              >
-                Book an Artist Now
-              </a>
-            </div>
+                {theme === "dark" ? (
+                  <Moon className="w-3 h-3 text-white" />
+                ) : (
+                  <Sun className="w-3 h-3 text-amber-500" />
+                )}
+              </span>
+            </button>
           </div>
-        )}
-      </header>
+
+          <button
+            type="button"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setIsContactModalOpen(true);
+            }}
+            className="w-full text-center py-3 bg-stone-100 dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-stone-100 font-extrabold text-sm flex items-center justify-center gap-2 rounded-md hover:border-[#C1121F] transition-colors cursor-pointer"
+          >
+            <Phone className="w-4 h-4 text-[#C1121F]" />
+            <span>Contact Details (Call & WhatsApp)</span>
+          </button>
+
+          <a
+            href="#contact"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full block text-center bg-[#C1121F] hover:bg-[#8F0D16] text-white font-extrabold text-xs uppercase tracking-wider py-3.5 rounded-md shadow-sm transition-colors"
+          >
+            Book an Artist Now
+          </a>
+        </div>
+      </div>
 
       {/* Interactive Contact Modal Card System */}
       <ContactModal
