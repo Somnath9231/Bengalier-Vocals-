@@ -113,19 +113,31 @@ export default function Navbar() {
                 <span>Contact</span>
               </button>
 
-              {/* Dark Mode Toggle Button */}
+              {/* Dark / Light Mode Toggle Switch (Desktop) */}
               <button
                 type="button"
                 onClick={toggleTheme}
-                className="p-2.5 text-stone-800 dark:text-stone-200 hover:text-[#C1121F] dark:hover:text-[#C1121F] bg-stone-100 dark:bg-stone-900 border border-stone-300 dark:border-stone-700 transition-colors cursor-pointer"
-                aria-label="Toggle Dark Mode"
+                className="relative inline-flex h-8 w-14 shrink-0 cursor-pointer items-center rounded-full bg-stone-200 dark:bg-stone-800 p-1 transition-colors duration-300 border border-stone-300 dark:border-stone-700 shadow-inner focus:outline-none focus:ring-2 focus:ring-[#C1121F]"
+                role="switch"
+                aria-checked={theme === "dark"}
+                aria-label="Toggle Light and Dark Mode"
                 title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
               >
-                {theme === "dark" ? (
-                  <Sun className="w-4 h-4 text-amber-400" />
-                ) : (
-                  <Moon className="w-4 h-4 text-stone-700" />
-                )}
+                <div className="absolute inset-0 flex items-center justify-between px-1.5 pointer-events-none">
+                  <Sun className="w-3.5 h-3.5 text-amber-500" />
+                  <Moon className="w-3.5 h-3.5 text-stone-400 dark:text-amber-300" />
+                </div>
+                <span
+                  className={`pointer-events-none z-10 inline-block h-6 w-6 rounded-full bg-white dark:bg-[#C1121F] shadow-md transform transition-transform duration-300 ease-in-out flex items-center justify-center ${
+                    theme === "dark" ? "translate-x-6" : "translate-x-0"
+                  }`}
+                >
+                  {theme === "dark" ? (
+                    <Moon className="w-3.5 h-3.5 text-white" />
+                  ) : (
+                    <Sun className="w-3.5 h-3.5 text-amber-500" />
+                  )}
+                </span>
               </button>
 
               {/* Book Artist Primary CTA */}
@@ -151,18 +163,30 @@ export default function Navbar() {
                 <span>Contact</span>
               </button>
 
-              {/* Dark Mode Toggle Mobile */}
+              {/* Dark / Light Mode Toggle Switch Mobile */}
               <button
                 type="button"
                 onClick={toggleTheme}
-                className="p-2 text-stone-800 dark:text-stone-200 bg-stone-100 dark:bg-stone-900 border border-stone-300 dark:border-stone-700"
+                className="relative inline-flex h-7 w-12 shrink-0 cursor-pointer items-center rounded-full bg-stone-200 dark:bg-stone-800 p-0.5 transition-colors duration-300 border border-stone-300 dark:border-stone-700 shadow-inner"
+                role="switch"
+                aria-checked={theme === "dark"}
                 aria-label="Toggle Theme"
               >
-                {theme === "dark" ? (
-                  <Sun className="w-4 h-4 text-amber-400" />
-                ) : (
-                  <Moon className="w-4 h-4 text-stone-700" />
-                )}
+                <div className="absolute inset-0 flex items-center justify-between px-1 pointer-events-none">
+                  <Sun className="w-3 h-3 text-amber-500" />
+                  <Moon className="w-3 h-3 text-stone-400 dark:text-amber-300" />
+                </div>
+                <span
+                  className={`pointer-events-none z-10 inline-block h-5 w-5 rounded-full bg-white dark:bg-[#C1121F] shadow-sm transform transition-transform duration-300 ease-in-out flex items-center justify-center ${
+                    theme === "dark" ? "translate-x-5" : "translate-x-0"
+                  }`}
+                >
+                  {theme === "dark" ? (
+                    <Moon className="w-3 h-3 text-white" />
+                  ) : (
+                    <Sun className="w-3 h-3 text-amber-500" />
+                  )}
+                </span>
               </button>
 
               {/* Hamburger Burger Menu Button - STRICTLY FOR PHONES */}

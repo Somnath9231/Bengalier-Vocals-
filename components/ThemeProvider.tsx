@@ -17,7 +17,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Check local storage or system preference on mount
+    // Check local storage on mount (Default to Light mode if not set)
     const savedTheme = localStorage.getItem("bengalier_theme") as Theme | null;
     if (savedTheme === "dark" || savedTheme === "light") {
       setThemeState(savedTheme);
@@ -26,9 +26,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       } else {
         document.documentElement.classList.remove("dark");
       }
-    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setThemeState("dark");
-      document.documentElement.classList.add("dark");
+    } else {
+      // Default is explicitly light mode
+      setThemeState("light");
+      document.documentElement.classList.remove("dark");
     }
     setMounted(true);
   }, []);

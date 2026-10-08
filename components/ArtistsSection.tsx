@@ -40,6 +40,24 @@ const ARTIST_NETWORK: Artist[] = [
     isFeatured: true,
   },
   {
+    id: "sumitargo-band",
+    name: "Sumitargo Band",
+    category: "Semi-Rock, Bollywood & Fusion Band",
+    description:
+      "A high-octane live performance ensemble fusing semi-rock power chords with popular Bollywood anthems, evergreen Hindi classics, and energetic concert arrangements for college fests and stage events.",
+    badge: "Featured Band",
+    isFeatured: true,
+  },
+  {
+    id: "keya",
+    name: "Keya",
+    category: "Versatile Lead Female Vocalist",
+    description:
+      "A soulful and multi-genre female vocalist delivering stellar live vocal performances across all musical styles, from classic & modern Bollywood melodies to pop, acoustic, and regional live show hits.",
+    badge: "Featured Vocalist",
+    isFeatured: true,
+  },
+  {
     id: "senior-artists",
     name: "Senior Artists Network",
     category: "Established Vocal Virtuosos & Classical Masters",
@@ -66,6 +84,8 @@ export default function ArtistsSection() {
       contactSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const featuredCount = ARTIST_NETWORK.filter((a) => a.isFeatured).length;
 
   return (
     <section id="artists" className="py-20 md:py-28 bg-[#FAFAFA] dark:bg-[#0D0D0E] border-b border-stone-200 dark:border-stone-800 transition-colors duration-200">
@@ -98,7 +118,9 @@ export default function ArtistsSection() {
                   <span className="text-xs font-mono font-bold px-2.5 py-1 bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 uppercase tracking-widest border border-stone-200 dark:border-stone-700">
                     {artist.badge}
                   </span>
-                  <span className="text-stone-400 dark:text-stone-500 font-mono text-sm">0{idx + 1}</span>
+                  <span className="text-stone-400 dark:text-stone-500 font-mono text-sm">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
                 </div>
                 
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-[#161616] dark:text-white">
@@ -145,7 +167,9 @@ export default function ArtistsSection() {
                   <span className="text-xs font-mono font-bold px-2 py-0.5 bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 uppercase tracking-wider border border-stone-200 dark:border-stone-700">
                     {artist.badge}
                   </span>
-                  <span className="text-stone-400 dark:text-stone-500 font-mono text-xs">0{idx + 4}</span>
+                  <span className="text-stone-400 dark:text-stone-500 font-mono text-xs">
+                    {String(featuredCount + idx + 1).padStart(2, "0")}
+                  </span>
                 </div>
                 
                 <h4 className="text-xl font-bold text-[#161616] dark:text-white">{artist.name}</h4>
