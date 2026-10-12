@@ -1,9 +1,16 @@
 import { NextResponse } from "next/server";
 import * as XLSX from "xlsx";
-import { bulkImportContacts, ContactRecord } from "@/lib/clientStore";
+import { bulkImportContacts, ContactRecord, validateRequestAuth } from "@/lib/clientStore";
 
 export async function POST(req: Request) {
   try {
+    if (!validateRequestAuth(req)) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized: Invalid or expired session." },
+        { status: 401 }
+      );
+    }
+
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
 
@@ -32,7 +39,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Map columns flexibly for Name, Phone, Relation, Notes
+    // Map columns flexibly for Name, Phone, Relation, ArtistType, Genre, Budget, Notes
     const importedRecords: Partial<ContactRecord>[] = rawData.map((row) => {
       const keys = Object.keys(row);
       const findVal = (possibleNames: string[]) => {
@@ -42,18 +49,24 @@ export async function POST(req: Request) {
         return matchedKey ? String(row[matchedKey]).trim() : "";
       };
 
-      const name = findVal(["name", "client", "contact", "person", "artist"]);
-      const phone = findVal(["phone", "mobile", "number", "tel", "contact no"]);
+      const name = findVal(["name", "client", "contact", "person", "artist", "title"]);
+      const phone = findVal(["phone", "mobile", "number", "tel", "contact no", "ph"]);
       const whatsapp = findVal(["whatsapp", "wa", "mobile", "phone"]);
       const relation = findVal(["relation", "role", "category", "type", "designation"]);
+      const artistType = findVal(["artist type", "band or singer", "act", "singer/band", "sub-type"]);
+      const musicGenre = findVal(["genre", "music", "style", "music genre"]);
+      const budget = findVal(["budget", "fee", "rate", "cost", "charge", "show budget"]);
       const notes = findVal(["notes", "remark", "details", "comments", "description"]);
 
       return {
         name: name || "Unnamed Contact",
         phone: phone || "No Phone",
         whatsapp: whatsapp || phone,
-        relation: relation || "Contact",
-        notes,
+        relation: relation || "Artist",
+        artistType: artistType || "",
+        musicGenre: musicGenre || "",
+        budget: budget || "",
+        notes: notes || "",
       };
     });
 

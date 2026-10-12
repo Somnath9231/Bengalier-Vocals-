@@ -4,10 +4,18 @@ import {
   addContact,
   updateContact,
   deleteContact,
+  validateRequestAuth,
 } from "@/lib/clientStore";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    if (!validateRequestAuth(req)) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized: Invalid or expired session." },
+        { status: 401 }
+      );
+    }
+
     const contacts = getContacts();
     return NextResponse.json({ success: true, contacts });
   } catch (err: any) {
@@ -20,8 +28,15 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
+    if (!validateRequestAuth(req)) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized: Invalid or expired session." },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json();
-    const { name, phone, whatsapp, relation, notes } = body;
+    const { name, phone, whatsapp, relation, artistType, musicGenre, budget, notes } = body;
 
     if (!name || !phone) {
       return NextResponse.json(
@@ -31,10 +46,13 @@ export async function POST(req: Request) {
     }
 
     const created = addContact({
-      name,
-      phone,
-      whatsapp: whatsapp || phone,
-      relation: relation || "Client",
+      name: name.trim(),
+      phone: phone.trim(),
+      whatsapp: (whatsapp || phone).trim(),
+      relation: relation || "Artist",
+      artistType: artistType || "",
+      musicGenre: musicGenre || "",
+      budget: budget || "",
       notes: notes || "",
     });
 
@@ -49,6 +67,13 @@ export async function POST(req: Request) {
 
 export async function PUT(req: Request) {
   try {
+    if (!validateRequestAuth(req)) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized: Invalid or expired session." },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json();
     const { id, ...updates } = body;
 
@@ -78,6 +103,13 @@ export async function PUT(req: Request) {
 
 export async function DELETE(req: Request) {
   try {
+    if (!validateRequestAuth(req)) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized: Invalid or expired session." },
+        { status: 401 }
+      );
+    }
+
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
 

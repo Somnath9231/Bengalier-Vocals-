@@ -1,12 +1,16 @@
 import fs from "fs";
 import path from "path";
+import crypto from "crypto";
 
 export interface ContactRecord {
   id: string;
   name: string;
   phone: string;
   whatsapp?: string;
-  relation: string; // e.g., "Artist", "Promoter", "Client", "Sound Vendor", "Stage Tech", etc.
+  relation: string; // "Promoter / Organizer", "Artist", "Other Materials / Equipment", or custom
+  artistType?: string; // "Singer" | "Band" | "Solo Performer" | "Other"
+  musicGenre?: string; // e.g. Bollywood, Rock, Folk, Classical, Fusion
+  budget?: string; // Last recorded budget / fee for a show
   notes?: string;
   createdAt: string;
 }
@@ -14,6 +18,7 @@ export interface ContactRecord {
 const DATA_DIR = path.join(process.cwd(), "data");
 const CONTACTS_FILE = path.join(DATA_DIR, "contacts.json");
 const CREDENTIALS_FILE = path.join(DATA_DIR, "credentials.json");
+const PASSWORD_SALT = "bengalier_vocals_secure_salt_2026";
 
 function ensureDir() {
   if (!fs.existsSync(DATA_DIR)) {
@@ -28,6 +33,9 @@ const INITIAL_CONTACTS: ContactRecord[] = [
     phone: "+91 98301 12345",
     whatsapp: "+91 98301 12345",
     relation: "Artist",
+    artistType: "Singer",
+    musicGenre: "Acoustic / Bengali Pop",
+    budget: "₹25,000 / show",
     notes: "Lead Vocalist & Acoustic Band Leader",
     createdAt: new Date().toISOString(),
   },
@@ -36,8 +44,8 @@ const INITIAL_CONTACTS: ContactRecord[] = [
     name: "Ayan Bose",
     phone: "+91 62907 13080",
     whatsapp: "+91 62907 13080",
-    relation: "Founder & Key Coordinator",
-    notes: "Main point of contact for artist bookings",
+    relation: "Promoter / Organizer",
+    notes: "Main coordinator for artist bookings & concert curation",
     createdAt: new Date().toISOString(),
   },
   {
@@ -45,8 +53,8 @@ const INITIAL_CONTACTS: ContactRecord[] = [
     name: "Somnath Podder",
     phone: "+91 94328 82915",
     whatsapp: "+91 94328 82915",
-    relation: "Promoter & Technical Support",
-    notes: "Handles sound equipment, stage framing & logistics",
+    relation: "Other Materials / Equipment",
+    notes: "Sound equipment, line arrays, stage framing & logistics vendor",
     createdAt: new Date().toISOString(),
   },
 ];
@@ -108,7 +116,10 @@ export function bulkImportContacts(records: Partial<ContactRecord>[]): ContactRe
     name: r.name || "Unnamed Contact",
     phone: r.phone || "",
     whatsapp: r.whatsapp || r.phone || "",
-    relation: r.relation || "Contact",
+    relation: r.relation || "Artist",
+    artistType: r.artistType || "",
+    musicGenre: r.musicGenre || "",
+    budget: r.budget || "",
     notes: r.notes || "",
     createdAt: new Date().toISOString(),
   }));
@@ -123,12 +134,33 @@ export interface AdminCredentials {
   passwordHash: string;
 }
 
+export function hashPassword(password: string): string {
+  return crypto.scryptSync(password, PASSWORD_SALT, 32).toString("hex");
+}
+
+export function verifyPassword(password: string, storedHash: string): boolean {
+  try {
+    const computed = hashPassword(password);
+    // Constant-time comparison
+    if (computed.length !== storedHash.length) {
+      // Check if stored is plain text fallback
+      return password === storedHash;
+    }
+    return crypto.timingSafeEqual(Buffer.from(computed), Buffer.from(storedHash));
+  } catch {
+    return false;
+  }
+}
+
 export function getCredentials(): AdminCredentials {
   ensureDir();
+  const defaultAdminId = "bengalierVolcas#A";
+  const defaultPasswordHash = hashPassword("BENGALI#9231");
+
   if (!fs.existsSync(CREDENTIALS_FILE)) {
     const defaultCreds: AdminCredentials = {
-      adminId: "admin",
-      passwordHash: "admin123",
+      adminId: defaultAdminId,
+      passwordHash: defaultPasswordHash,
     };
     fs.writeFileSync(CREDENTIALS_FILE, JSON.stringify(defaultCreds, null, 2));
     return defaultCreds;
@@ -138,11 +170,149 @@ export function getCredentials(): AdminCredentials {
     const raw = fs.readFileSync(CREDENTIALS_FILE, "utf-8");
     return JSON.parse(raw);
   } catch {
-    return { adminId: "admin", passwordHash: "admin123" };
+    return { adminId: defaultAdminId, passwordHash: defaultPasswordHash };
   }
 }
 
-export function updateCredentials(adminId: string, passwordHash: string): void {
+export function updateCredentials(adminId: string, plainOrHashedPassword: string): void {
   ensureDir();
+  // Store hashed password
+  const passwordHash =
+    plainOrHashedPassword.length === 64
+      ? plainOrHashedPassword
+      : hashPassword(plainOrHashedPassword);
   fs.writeFileSync(CREDENTIALS_FILE, JSON.stringify({ adminId, passwordHash }, null, 2));
+}
+
+// ----------------------------------------------------
+// Intermediate to High Security Session Management
+// ----------------------------------------------------
+
+interface SessionData {
+  adminId: string;
+  createdAt: number;
+  expiresAt: number;
+}
+
+// Global in-memory session store (persists across API requests in server process)
+const globalSessions = (global as any).__bengalier_sessions || new Map<string, SessionData>();
+(global as any).__bengalier_sessions = globalSessions;
+
+// Global rate limiting & lockout tracker
+interface AttemptInfo {
+  count: number;
+  lastAttempt: number;
+  lockedUntil: number;
+}
+const globalAttempts = (global as any).__bengalier_attempts || new Map<string, AttemptInfo>();
+(global as any).__bengalier_attempts = globalAttempts;
+
+const MAX_FAILED_ATTEMPTS = 5;
+const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes lockout
+const SESSION_LIFETIME_MS = 4 * 60 * 60 * 1000; // 4 hours active session
+
+export function checkRateLimit(identifier: string): {
+  allowed: boolean;
+  remainingAttempts: number;
+  lockedMinutes?: number;
+} {
+  const now = Date.now();
+  const attempt = globalAttempts.get(identifier);
+
+  if (!attempt) {
+    return { allowed: true, remainingAttempts: MAX_FAILED_ATTEMPTS };
+  }
+
+  if (attempt.lockedUntil && now < attempt.lockedUntil) {
+    const remainingMs = attempt.lockedUntil - now;
+    return {
+      allowed: false,
+      remainingAttempts: 0,
+      lockedMinutes: Math.ceil(remainingMs / (60 * 1000)),
+    };
+  }
+
+  // If lockout expired, reset
+  if (attempt.lockedUntil && now >= attempt.lockedUntil) {
+    globalAttempts.delete(identifier);
+    return { allowed: true, remainingAttempts: MAX_FAILED_ATTEMPTS };
+  }
+
+  const remaining = Math.max(0, MAX_FAILED_ATTEMPTS - attempt.count);
+  return { allowed: true, remainingAttempts: remaining };
+}
+
+export function recordFailedAttempt(identifier: string): {
+  isLocked: boolean;
+  remainingAttempts: number;
+  lockedMinutes?: number;
+} {
+  const now = Date.now();
+  const current = globalAttempts.get(identifier) || { count: 0, lastAttempt: now, lockedUntil: 0 };
+  current.count += 1;
+  current.lastAttempt = now;
+
+  if (current.count >= MAX_FAILED_ATTEMPTS) {
+    current.lockedUntil = now + LOCKOUT_DURATION_MS;
+    globalAttempts.set(identifier, current);
+    return {
+      isLocked: true,
+      remainingAttempts: 0,
+      lockedMinutes: 15,
+    };
+  }
+
+  globalAttempts.set(identifier, current);
+  return {
+    isLocked: false,
+    remainingAttempts: MAX_FAILED_ATTEMPTS - current.count,
+  };
+}
+
+export function resetRateLimit(identifier: string): void {
+  globalAttempts.delete(identifier);
+}
+
+export function createSessionToken(adminId: string): string {
+  const token = crypto.randomBytes(32).toString("hex");
+  const now = Date.now();
+  globalSessions.set(token, {
+    adminId,
+    createdAt: now,
+    expiresAt: now + SESSION_LIFETIME_MS,
+  });
+  return token;
+}
+
+export function verifySessionToken(token: string | null | undefined): boolean {
+  if (!token) return false;
+  const session = globalSessions.get(token);
+  if (!session) return false;
+
+  const now = Date.now();
+  if (now > session.expiresAt) {
+    globalSessions.delete(token);
+    return false;
+  }
+
+  return true;
+}
+
+export function revokeSessionToken(token: string | null | undefined): void {
+  if (token) {
+    globalSessions.delete(token);
+  }
+}
+
+export function validateRequestAuth(req: Request): boolean {
+  const authHeader = req.headers.get("authorization");
+  let token = "";
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    token = authHeader.substring(7).trim();
+  } else {
+    // Check custom header
+    token = req.headers.get("x-admin-token") || "";
+  }
+
+  return verifySessionToken(token);
 }
